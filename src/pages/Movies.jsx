@@ -2,16 +2,17 @@ import { NavLink } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import { SearchForm } from '../components/SearchForm/SearchForm';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState('');
 
-  const { movieId } = useParams();
-  useEffect(() => {
-    if (!movieId) return;
-  }, [movieId]);
+  // const { movieId } = useParams();
+  // useEffect(() => {
+  //   if (!movieId) return;
+  // }, [movieId]);
 
   useEffect(() => {
     axios
@@ -22,7 +23,7 @@ const Movies = () => {
         const movies = response.data.results;
         setMovies(movies);
       });
-  }, []);
+  }, [query]);
 
   return (
     <main>

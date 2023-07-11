@@ -27,7 +27,7 @@ export const SearchForm = ({ onSubmit }) => {
 
     setSearchParams({ query: value });
 
-    onSubmit(value);
+    // onSubmit(value);
 
     // reset();
   };
