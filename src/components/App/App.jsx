@@ -2,9 +2,8 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import Home from '../../pages/Home';
 import Movies from '../../pages/Movies';
 import MovieDetails from '../../pages/MovieDetails';
-import Cast from '../Cast/Cast';
-import Reviews from '../Reviews/Reviews';
-import { Container, List , Header} from './App.styled';
+
+import { Container, List, Header } from './App.styled';
 
 export const App = () => {
   return (
@@ -20,15 +19,14 @@ export const App = () => {
         </List>
       </Header>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:movieId" element={<MovieDetails />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
-        </Route>
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId/*" element={<MovieDetails />}></Route>
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </main>
     </Container>
   );
 };
