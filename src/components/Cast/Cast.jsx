@@ -3,6 +3,7 @@ import axios from 'axios';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import { Notify } from 'notiflix';
 import { ListCast } from './Cast.styled';
+import PropTypes from 'prop-types';
 
 const defaultImg =
   'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
@@ -68,6 +69,10 @@ const Cast = ({ id }) => {
       </ListCast>
     </div>
   );
+};
+
+Cast.propTypes = {
+  id: PropTypes.string.isRequired,
 };
 
 export default Cast;

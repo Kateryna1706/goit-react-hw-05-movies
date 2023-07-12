@@ -3,6 +3,7 @@ import axios from 'axios';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import { Notify } from 'notiflix';
 import { ListReviews } from './Reviews.styled';
+import PropTypes from 'prop-types';
 
 const Reviews = ({ id }) => {
   const [reviews, setReviews] = useState([]);
@@ -58,6 +59,10 @@ const Reviews = ({ id }) => {
       </ListReviews>
     </div>
   );
+};
+
+Reviews.propTypes = {
+  id: PropTypes.string.isRequired,
 };
 
 export default Reviews;

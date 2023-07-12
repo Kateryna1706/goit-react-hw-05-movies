@@ -43,7 +43,7 @@ const Home = () => {
           color="#e15b64"
         />
       )}
-      {trendMovies && <MoviesList trendMovies={trendMovies} />}
+      {trendMovies && <MoviesList movies={trendMovies} />}
     </Container>
   );
 };

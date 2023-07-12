@@ -1,22 +1,14 @@
 import PropTypes from 'prop-types';
 import { Notify } from 'notiflix';
-import { useEffect, useState } from 'react';
-
+import { Form } from './SearchForm.styled';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchForm = ({ onSubmit }) => {
-  const [value, setValue] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
-
-  useEffect(() => {}, []);
-
-  const handleChange = event => {
-    const { value } = event.currentTarget;
-    setValue(value);
-  };
 
   const handleSubmit = event => {
     event.preventDefault();
+    const { value } = event.currentTarget.elements.searchValue;
 
     if (value.trim() === '') {
       return Notify.warning('Enter value!');
@@ -24,27 +16,23 @@ const SearchForm = ({ onSubmit }) => {
 
     setSearchParams({ query: value });
     const query = searchParams.get('query');
-    console.log(searchParams);
 
     onSubmit(query);
+    console.log(value);
 
-    reset();
-  };
-
-  const reset = () => {
-    setValue('');
+    event.currentTarget.elements.searchValue.value = '';
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={value}
+        name="searchValue"
         autoFocus
         placeholder="Search movies"
-        onChange={handleChange}
       />
-    </form>
+      <button type="submit">Search</button>
+    </Form>
   );
 };
 
