@@ -28,7 +28,6 @@ const Movies = () => {
       )
       .then(response => {
         const movies = response.data.results;
-        console.log(movies);
         setMovies(movies);
         if (movies.length === 0) {
           throw new Error('No movies found!');

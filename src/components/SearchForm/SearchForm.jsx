@@ -8,8 +8,9 @@ const SearchForm = ({ onSubmit }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const { value } = event.currentTarget.elements.searchValue;
 
+    const form = event.currentTarget;
+    const { value } = form.elements.searchValue;
     if (value.trim() === '') {
       return Notify.warning('Enter value!');
     }
@@ -18,9 +19,8 @@ const SearchForm = ({ onSubmit }) => {
     const query = searchParams.get('query');
 
     onSubmit(query);
-    console.log(value);
 
-    event.currentTarget.elements.searchValue.value = '';
+    form.reset();
   };
 
   return (
