@@ -11,8 +11,8 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header`
-display: flex;
-width: 100%;
+  display: flex;
+  width: 100%;
 `;
 
 export const List = styled.ul`

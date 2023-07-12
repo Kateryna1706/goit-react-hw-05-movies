@@ -1,23 +1,31 @@
+import { MagnifyingGlass } from 'react-loader-spinner';
+
 import { useEffect, useState } from 'react';
+import MoviesList from 'components/MoviesList/MoviesList';
+import SearchForm from 'components/SearchForm/SearchForm';
 import axios from 'axios';
 import { Notify } from 'notiflix';
-import { MagnifyingGlass } from 'react-loader-spinner';
-import { Container, TrendingTitle } from './Home.styled';
-import MoviesList from 'components/MoviesList/MoviesList';
+// import { useSearchParams } from 'react-router-dom';
 
-const Home = () => {
-  const [trendMovies, setTrendMovies] = useState(null);
+const Movies = () => {
+  const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState('');
+  //   const [searchParams, setSearchParams] = useSearchParams();
+
+  const changeQuery = value => {
+    setQuery(value);
+  };
 
   useEffect(() => {
     setLoading(true);
     axios
       .get(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=cb48852f2616f6f5995e859b25c73cfe`
+        `https://api.themoviedb.org/3/search/?${query}api_key=cb48852f2616f6f5995e859b25c73cfe`
       )
       .then(response => {
         const movies = response.data.results;
-        setTrendMovies(movies);
+        setMovies(movies);
         if (movies.length === 0) {
           throw new Error('No movies found!');
         }
@@ -26,11 +34,12 @@ const Home = () => {
         Notify.failure('No movies found!');
       })
       .finally(setLoading(false));
-  }, []);
+  }, [query]);
 
   return (
-    <Container>
-      <TrendingTitle>Trending today</TrendingTitle>
+    <main>
+      <p>Movies</p>
+      <SearchForm onSubmit={changeQuery} />
       {loading && (
         <MagnifyingGlass
           visible={true}
@@ -43,9 +52,10 @@ const Home = () => {
           color="#e15b64"
         />
       )}
-      {trendMovies && <MoviesList trendMovies={trendMovies} />}
-    </Container>
+
+      {movies && <MoviesList movies={movies} />}
+    </main>
   );
 };
 
-export default Home;
+export default Movies;

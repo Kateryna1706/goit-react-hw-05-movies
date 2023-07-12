@@ -1,16 +1,13 @@
-// import PropTypes from 'prop-types';
-// import { IconButton } from '../IconButton/IconButton';
-// import { ReactComponent as Search } from '../Icons/Icons.svg';
+import PropTypes from 'prop-types';
 import { Notify } from 'notiflix';
 import { useEffect, useState } from 'react';
 
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from 'react-router-dom';
 
-export const SearchForm = ({ onSubmit }) => {
+const SearchForm = ({ onSubmit }) => {
   const [value, setValue] = useState('');
-
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams);
+
   useEffect(() => {}, []);
 
   const handleChange = event => {
@@ -26,15 +23,17 @@ export const SearchForm = ({ onSubmit }) => {
     }
 
     setSearchParams({ query: value });
+    const query = searchParams.get('query');
+    console.log(searchParams);
 
-    // onSubmit(value);
+    onSubmit(query);
 
-    // reset();
+    reset();
   };
 
-  //   const reset = () => {
-  //     setValue('');
-  //   };
+  const reset = () => {
+    setValue('');
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -49,6 +48,8 @@ export const SearchForm = ({ onSubmit }) => {
   );
 };
 
-// Searchbar.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default SearchForm;

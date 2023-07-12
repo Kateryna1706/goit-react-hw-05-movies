@@ -7,6 +7,8 @@ import Cast from 'components/Cast/Cast';
 import Reviews from 'components/Reviews/Reviews';
 import {
   AdditionalInform,
+  Container,
+  ContainerForPadding,
   Details,
   DetailsTitle,
   ListAdditional,
@@ -14,6 +16,9 @@ import {
   Paragraph,
   Title,
 } from './MovieDetails.styled';
+
+const defaultImg =
+  'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -43,7 +48,7 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <div>
+    <ContainerForPadding>
       {loading && (
         <MagnifyingGlass
           visible={true}
@@ -56,26 +61,37 @@ const MovieDetails = () => {
           color="#e15b64"
         />
       )}
-      {movie !== null && <img src={`${movie.poster_path}`} alt="" />}
-      <Details>
+
+      <Container>
         {movie !== null && (
           <>
-            <Title>
-              {movie.title} ({movie.release_date.slice(0, 4)})
-            </Title>
-            <Paragraph>User Score: {`${movie.vote_count}%`}</Paragraph>
-            <DetailsTitle>Overview</DetailsTitle>
-            <Paragraph>{movie.overview}</Paragraph>
-            <DetailsTitle>Genres</DetailsTitle>
+            <img
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : `${defaultImg}`
+              }
+              width={250}
+              alt="poster"
+            />
+            <Details>
+              <Title>
+                {movie.title} ({movie.release_date.slice(0, 4)})
+              </Title>
+              <Paragraph>User Score: {`${movie.vote_count}%`}</Paragraph>
+              <DetailsTitle>Overview</DetailsTitle>
+              <Paragraph>{movie.overview}</Paragraph>
+              <DetailsTitle>Genres</DetailsTitle>
 
-            <ListGenres>
-              {movie.genres.map(item => (
-                <li key={item.id}>{item.name}</li>
-              ))}
-            </ListGenres>
+              <ListGenres>
+                {movie.genres.map(item => (
+                  <li key={item.id}>{item.name}</li>
+                ))}
+              </ListGenres>
+            </Details>
           </>
         )}
-      </Details>
+      </Container>
       <AdditionalInform>
         <DetailsTitle>Additional information</DetailsTitle>
         <ListAdditional>
@@ -91,7 +107,7 @@ const MovieDetails = () => {
         <Route path="cast" element={<Cast id={movieId} />} />
         <Route path="reviews" element={<Reviews id={movieId} />} />
       </Routes>
-    </div>
+    </ContainerForPadding>
   );
 };
 

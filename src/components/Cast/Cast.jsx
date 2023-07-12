@@ -4,6 +4,9 @@ import { MagnifyingGlass } from 'react-loader-spinner';
 import { Notify } from 'notiflix';
 import { ListCast } from './Cast.styled';
 
+const defaultImg =
+  'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+
 const Cast = ({ id }) => {
   const [actors, setActors] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -48,7 +51,16 @@ const Cast = ({ id }) => {
         {actors &&
           actors.map(actor => (
             <li key={actor.id}>
-              <img src={`${actor.profile_path}`} alt="" />
+              <img
+                src={
+                  actor.profile_path
+                    ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+                    : `${defaultImg}`
+                }
+                width={150}
+                alt="poster"
+              />
+
               <p>{actor.name}</p>
               <p>Character: {actor.character}</p>
             </li>
