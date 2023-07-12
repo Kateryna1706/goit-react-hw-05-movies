@@ -1,11 +1,11 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
-import Home from '../../pages/Home';
+import Home from '../../pages/Home/Home';
 import Movies from '../../pages/Movies';
-import MovieDetails from '../../pages/MovieDetails';
+import MovieDetails from '../../pages/MovieDetails/MovieDetails';
 
 import { Container, List, Header } from './App.styled';
 
-export const App = () => {
+const App = () => {
   return (
     <Container>
       <Header>
@@ -23,10 +23,12 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
-          <Route path="/movies/:movieId/*" element={<MovieDetails />}></Route>
+          <Route path="/movies/:movieId/*" element={<MovieDetails />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
     </Container>
   );
 };
+
+export default App;

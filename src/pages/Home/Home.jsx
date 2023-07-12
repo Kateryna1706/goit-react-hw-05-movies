@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Notify } from 'notiflix';
-import { ProductList } from 'components/MoviesList/MoviesList';
 import { MagnifyingGlass } from 'react-loader-spinner';
+import { TrendingTitle } from './Home.styled';
+import MoviesList from 'components/MoviesList/MoviesList';
 
 const Home = () => {
   const [trendMovies, setTrendMovies] = useState(null);
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -29,7 +30,7 @@ const Home = () => {
 
   return (
     <main>
-      <p>Movies</p>
+      <TrendingTitle>Trending today</TrendingTitle>
       {loading && (
         <MagnifyingGlass
           visible={true}
@@ -42,7 +43,7 @@ const Home = () => {
           color="#e15b64"
         />
       )}
-      {trendMovies && <ProductList trendMovies={trendMovies} />}
+      {trendMovies && <MoviesList trendMovies={trendMovies} />}
     </main>
   );
 };
