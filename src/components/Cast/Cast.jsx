@@ -3,23 +3,24 @@ import axios from 'axios';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import { Notify } from 'notiflix';
 import { ListCast } from './Cast.styled';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
 const defaultImg =
   'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
-const Cast = ({ id }) => {
+const Cast = () => {
   const [actors, setActors] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { movieId } = useParams();
 
   useEffect(() => {
-    if (!id) {
+    if (!movieId) {
       return;
     }
     setLoading(true);
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=cb48852f2616f6f5995e859b25c73cfe`
+        `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=cb48852f2616f6f5995e859b25c73cfe`
       )
       .then(response => {
         const actors = response.data.cast;
@@ -32,7 +33,7 @@ const Cast = ({ id }) => {
         Notify.failure('No found!');
       })
       .finally(setLoading(false));
-  }, [id]);
+  }, [movieId]);
 
   return (
     <div>
@@ -69,10 +70,6 @@ const Cast = ({ id }) => {
       </ListCast>
     </div>
   );
-};
-
-Cast.propTypes = {
-  id: PropTypes.string.isRequired,
 };
 
 export default Cast;

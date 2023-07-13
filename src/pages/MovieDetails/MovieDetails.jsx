@@ -118,8 +118,8 @@ const MovieDetails = () => {
         </ListAdditional>
       </AdditionalInform>
       <Routes>
-        <Route path="cast" element={<Cast id={movieId} />} />
-        <Route path="reviews" element={<Reviews id={movieId} />} />
+        <Route path="cast" element={<Cast />} />
+        <Route path="reviews" element={<Reviews />} />
       </Routes>
     </ContainerForPadding>
   );
