@@ -1,4 +1,5 @@
 import { MagnifyingGlass } from 'react-loader-spinner';
+import { useSearchParams } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import MoviesList from 'components/MoviesList/MoviesList';
@@ -10,18 +11,16 @@ import { Container } from './Movies.styled';
 const Movies = () => {
   const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState('');
-
-  const changeQuery = value => {
-    setQuery(value);
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(setSearchParams);
 
   useEffect(() => {
+    const query = searchParams.get('query');
     if (!query) {
       return;
     }
-
     setLoading(true);
+
     axios
       .get(
         `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=cb48852f2616f6f5995e859b25c73cfe`
@@ -37,11 +36,11 @@ const Movies = () => {
         Notify.failure('No movies found!');
       })
       .finally(setLoading(false));
-  }, [query]);
+  }, [searchParams]);
 
   return (
     <Container>
-      <SearchForm onSubmit={changeQuery} />
+      <SearchForm />
       {loading && (
         <MagnifyingGlass
           visible={true}
@@ -54,7 +53,6 @@ const Movies = () => {
           color="#e15b64"
         />
       )}
-
       {movies && <MoviesList movies={movies} />}
     </Container>
   );

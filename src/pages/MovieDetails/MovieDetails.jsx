@@ -1,4 +1,11 @@
-import { NavLink, Routes, Route, useParams } from 'react-router-dom';
+import {
+  NavLink,
+  Routes,
+  Route,
+  useParams,
+  useLocation,
+  Link,
+} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { MagnifyingGlass } from 'react-loader-spinner';
@@ -7,6 +14,7 @@ import Cast from 'components/Cast/Cast';
 import Reviews from 'components/Reviews/Reviews';
 import {
   AdditionalInform,
+  ButtonBack,
   Container,
   ContainerForPadding,
   Details,
@@ -24,6 +32,9 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+
+  const backLinkHref = location.state?.from ?? '/movies';
 
   useEffect(() => {
     if (!movieId) {
@@ -61,6 +72,9 @@ const MovieDetails = () => {
           color="#e15b64"
         />
       )}
+      <Link to={backLinkHref}>
+        <ButtonBack>Go back</ButtonBack>
+      </Link>
 
       <Container>
         {movie !== null && (

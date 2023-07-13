@@ -1,25 +1,21 @@
-import PropTypes from 'prop-types';
 import { Notify } from 'notiflix';
 import { Form } from './SearchForm.styled';
 import { useSearchParams } from 'react-router-dom';
 
-const SearchForm = ({ onSubmit }) => {
+const SearchForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams);
 
   const handleSubmit = event => {
     event.preventDefault();
 
     const form = event.currentTarget;
     const { value } = form.elements.searchValue;
+
     if (value.trim() === '') {
       return Notify.warning('Enter value!');
     }
-
     setSearchParams({ query: value });
-    const query = searchParams.get('query');
-
-    onSubmit(query);
-
     form.reset();
   };
 
@@ -34,10 +30,6 @@ const SearchForm = ({ onSubmit }) => {
       <button type="submit">Search</button>
     </Form>
   );
-};
-
-SearchForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

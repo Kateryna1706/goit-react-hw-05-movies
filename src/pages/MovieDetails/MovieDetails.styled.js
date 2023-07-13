@@ -4,6 +4,17 @@ export const ContainerForPadding = styled.div`
   padding: 20px;
 `;
 
+export const ButtonBack = styled.button`
+  display: block;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border: none;
+  border-radius: 5%;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+`;
+
 export const AdditionalInform = styled.div`
   border-top: 2px solid #000;
   border-bottom: 2px solid #000;
