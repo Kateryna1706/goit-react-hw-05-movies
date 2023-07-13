@@ -6,12 +6,11 @@ import {
   useLocation,
   Link,
 } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import { Notify } from 'notiflix';
-import Cast from 'components/Cast/Cast';
-import Reviews from 'components/Reviews/Reviews';
+import { lazy, Suspense } from 'react';
 import {
   AdditionalInform,
   ButtonBack,
@@ -25,6 +24,9 @@ import {
   Title,
 } from './MovieDetails.styled';
 
+const Cast = lazy(() => import('components/Cast/Cast'));
+const Reviews = lazy(() => import('components/Reviews/Reviews'));
+
 const defaultImg =
   'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
@@ -34,7 +36,7 @@ const MovieDetails = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
 
-  const backLinkHref = location.state?.from ?? '/movies';
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     if (!movieId) {
@@ -72,7 +74,7 @@ const MovieDetails = () => {
           color="#e15b64"
         />
       )}
-      <Link to={backLinkHref}>
+      <Link to={backLinkHref.current}>
         <ButtonBack>Go back</ButtonBack>
       </Link>
 
@@ -117,10 +119,12 @@ const MovieDetails = () => {
           </li>
         </ListAdditional>
       </AdditionalInform>
-      <Routes>
-        <Route path="cast" element={<Cast />} />
-        <Route path="reviews" element={<Reviews />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Routes>
+      </Suspense>
     </ContainerForPadding>
   );
 };
