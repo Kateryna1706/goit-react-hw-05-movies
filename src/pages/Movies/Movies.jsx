@@ -11,7 +11,7 @@ import { Container } from './Movies.styled';
 const Movies = () => {
   const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const query = searchParams.get('query');

@@ -3,7 +3,7 @@ import { Form } from './SearchForm.styled';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchForm = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -14,7 +14,8 @@ const SearchForm = () => {
     if (value.trim() === '') {
       return Notify.warning('Enter value!');
     }
-    setSearchParams({ query: value });
+    searchParams[1]({ query: value });
+
     form.reset();
   };
 
