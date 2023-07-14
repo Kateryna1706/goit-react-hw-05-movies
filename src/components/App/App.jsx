@@ -4,7 +4,7 @@ import { Container, List, Header } from './App.styled';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Movies = lazy(() => import('../../pages/Movies/Movies'));
-const MovieDetails = lazy(() =>
+const MovieDetails = lazy(() => 
   import('../../pages/MovieDetails/MovieDetails')
 );
 

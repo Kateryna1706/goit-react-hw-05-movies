@@ -4,7 +4,6 @@ import { useSearchParams } from 'react-router-dom';
 
 const SearchForm = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams);
 
   const handleSubmit = event => {
     event.preventDefault();
